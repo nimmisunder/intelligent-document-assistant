@@ -230,4 +230,185 @@ Start Ollama if it is not already running:
 ollama serve
 ```
 
-The application uses
+The application uses the local Ollama API:
+
+http://localhost:11434
+
+The configured model name is:
+
+llama3:latest
+
+5. Start FastAPI
+
+From the project root:
+
+uvicorn app.main:app --reload
+
+FastAPI runs at:
+
+http://127.0.0.1:8000
+
+API documentation:
+
+http://127.0.0.1:8000/docs
+
+6. Start Streamlit
+
+Open another terminal:
+
+streamlit run frontend/main.py
+
+The application will open in your browser.
+
+🔄 How the RAG Pipeline Works
+
+Step 1: Document Ingestion
+
+Users upload PDF documents through the Streamlit interface.
+
+PyMuPDF extracts the document text page by page while preserving page-number metadata.
+
+Step 2: Chunking
+
+Extracted text is split into smaller chunks using RecursiveCharacterTextSplitter.
+
+Initial configuration:
+
+Chunk size: 500 characters.
+
+Chunk overlap: 100 characters.
+
+Each chunk stores metadata such as document ID, filename, page number, and chunk ID.
+
+Step 3: Embedding Generation
+
+Sentence Transformers converts text chunks into numerical vectors.
+
+Model:
+
+all-MiniLM-L6-v2
+
+Embedding dimension: 384.
+
+Step 4: Semantic Search
+
+FAISS stores the vectors and retrieves semantically similar chunks based on the user's question.
+
+Step 5: Keyword Search
+
+BM25 retrieves chunks based on keyword relevance.
+
+Step 6: Hybrid Retrieval
+
+Reciprocal Rank Fusion combines the rankings from FAISS and BM25.
+
+Step 7: Reranking
+
+A Cross-Encoder evaluates the question and retrieved passages together to improve relevance ranking.
+
+Model:
+
+cross-encoder/ms-marco-MiniLM-L-6-v2
+
+Step 8: Answer Generation
+
+The retrieved passages are passed to Ollama along with the user's question.
+
+The LLM generates an answer using the retrieved document context.
+
+Step 9: Source References
+
+The application returns source metadata, including filenames and PDF page numbers, to help users identify where the information originated.
+
+📊 Evaluation
+
+The application uses a labelled evaluation dataset.
+
+Example:
+
+[
+    {
+        "question": "What health insurance benefits are provided?",
+        "document_id": "YOUR_DOCUMENT_ID",
+        "relevant_chunk_ids": [
+            "YOUR_RELEVANT_CHUNK_ID"
+        ]
+    }
+]
+
+Run evaluation:
+
+python evaluate_retrieval.py
+
+The results are saved under:
+
+evaluation/evaluation_results.json
+
+The Streamlit dashboard displays the calculated retrieval metrics.
+
+Note: Evaluation results depend on the quality and completeness of the manually labelled ground-truth dataset.
+
+🔐 Data Storage
+
+The application uses:
+
+SQLite for document metadata.
+
+Local PDF storage in uploads/.
+
+FAISS index storage in vector_store/.
+
+JSON metadata for indexed chunks.
+
+In-memory BM25 index rebuilt from persisted chunk metadata.
+
+Uploaded documents and indexes are stored locally.
+
+Do not commit private documents, database files, API secrets, or generated indexes to a public repository.
+
+🧪 Example Questions
+
+Users can ask questions such as:
+
+What benefits are mentioned in this document?
+
+What are the eligibility criteria?
+
+What are the exclusions?
+
+Which page mentions a particular benefit?
+
+Summarize the important points of this policy.
+
+The actual answers depend on the contents of the uploaded documents.
+
+🚧 Future Enhancements
+
+Compare FAISS, BM25, Hybrid Search, and Hybrid + Reranking.
+
+Integrate Ragas for answer-quality evaluation.
+
+Add faithfulness and answer relevancy metrics.
+
+Add conversation persistence.
+
+Add PDF preview with page navigation.
+
+Add document-level access control.
+
+Improve handling of scanned PDFs using OCR.
+
+Add streaming LLM responses.
+
+Improve indexing reliability and background processing.
+
+Add deployment using Docker.
+
+🎯 Project Objective
+
+This project demonstrates practical implementation of Retrieval-Augmented Generation, semantic search, hybrid retrieval, reranking, local LLM integration, and retrieval evaluation.
+
+It explores how AI-powered systems can retrieve relevant information from private documents and generate context-aware responses.
+
+
+Technologies explored: Python | FastAPI | Streamlit | RAG | FAISS | BM25 | Sentence Transformers | Ollama | LLM Evaluation
