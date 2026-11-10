@@ -1,4 +1,3 @@
-﻿# intelligent-document-assistant
 # 📄 Intelligent Document Assistant
 
 An AI-powered document question-answering system that allows users to upload PDF documents, extract and index their content, and ask questions using Retrieval-Augmented Generation (RAG).
