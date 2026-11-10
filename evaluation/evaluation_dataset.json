@@ -1,0 +1,16 @@
+[
+    {
+        "question": "Total Authorised Amount",
+        "document_id": "1539bcca-6283-49ec-883b-6d20158ccd5f",
+        "relevant_chunk_ids": [
+            "1539bcca-6283-49ec-883b-6d20158ccd5f_6"
+        ]
+    },
+    {
+        "question": "Claim Number:",
+        "document_id": "1539bcca-6283-49ec-883b-6d20158ccd5f",
+        "relevant_chunk_ids": [
+            "1539bcca-6283-49ec-883b-6d20158ccd5f_5"
+        ]
+    }
+]

@@ -1,0 +1,43 @@
+{
+    "total_questions": 2,
+    "average_metrics": {
+        "precision_at_k": 0.2,
+        "recall_at_k": 1.0,
+        "mrr": 0.75,
+        "hit_rate_at_k": 1.0
+    },
+    "question_results": [
+        {
+            "question": "Total Authorised Amount",
+            "retrieved_chunks": [
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_6",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_2",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_8",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_12",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_7"
+            ],
+            "metrics": {
+                "precision_at_k": 0.2,
+                "recall_at_k": 1.0,
+                "mrr": 1.0,
+                "hit_rate_at_k": 1
+            }
+        },
+        {
+            "question": "Claim Number:",
+            "retrieved_chunks": [
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_1",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_5",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_4",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_17",
+                "1539bcca-6283-49ec-883b-6d20158ccd5f_14"
+            ],
+            "metrics": {
+                "precision_at_k": 0.2,
+                "recall_at_k": 1.0,
+                "mrr": 0.5,
+                "hit_rate_at_k": 1
+            }
+        }
+    ]
+}
